@@ -1,5 +1,10 @@
 :root {
-    --color-black: #000;
+    --keyboard-bg: antiquewhite;
     --color-white: #fff;
-    --color-focus: #036fc7;
-  }
+    --keyboard-border: #036fc7;
+    --key-bg: #fff0f0;
+    --key-border: #b18597;
+    --accent-key-bg: #eec729;
+    --accent-key-bg-hover: #e8be12;
+    --accent-text: #ffd900;
+}
