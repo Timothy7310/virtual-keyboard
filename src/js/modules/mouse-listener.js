@@ -1,4 +1,5 @@
 import capsFunc from './caps-button';
+import shiftFunc from './shift-button';
 
 let isCaps = false;
 const mouseListener = () => {
@@ -11,6 +12,9 @@ const mouseListener = () => {
             capsFunc();
             isCaps = !isCaps;
         }
+        if (e.target.closest('.ShiftLeft') || e.target.closest('.ShiftRight')) {
+            shiftFunc();
+        }
     }));
 
     keys.forEach((key) => key.addEventListener('mouseup', (e) => {
@@ -18,9 +22,10 @@ const mouseListener = () => {
         if (!key.classList.contains('CapsLock')) {
             key.classList.remove('active');
         }
+        if (e.target.closest('.ShiftLeft') || e.target.closest('.ShiftRight')) {
+            shiftFunc();
+        }
     }));
-
-    // document.querySelector('.CapsLock').addEventListener('click', capsFunc);
 };
 
 export default mouseListener;

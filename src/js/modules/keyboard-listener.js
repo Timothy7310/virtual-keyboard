@@ -1,5 +1,6 @@
 import changeLang from './change-language';
 import capsFunc from './caps-button';
+import shiftFunc from './shift-button';
 
 let isEng = false;
 let isDown = false;
@@ -22,6 +23,11 @@ const keyboardListener = () => {
             isDown = true;
             isCaps = !isCaps;
         }
+
+        if ((!isDown && e.code === 'ShiftLeft') || (!isDown && e.code === 'ShiftRight')) {
+            shiftFunc();
+            isDown = true;
+        }
     });
 
     document.addEventListener('keyup', (e) => {
@@ -33,6 +39,11 @@ const keyboardListener = () => {
         if (e.code === 'CapsLock' && isDown) {
             isDown = false;
             isCaps = false;
+        }
+
+        if ((isDown && e.code === 'ShiftLeft') || (isDown && e.code === 'ShiftRight')) {
+            shiftFunc();
+            isDown = false;
         }
     });
 };
