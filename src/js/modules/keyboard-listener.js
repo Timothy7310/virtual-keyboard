@@ -3,7 +3,6 @@ import capsFunc from './caps-button';
 import shiftFunc from './shift-button';
 import typingSymbols from './typing-symbols';
 
-let isEng = false;
 let isDown = false;
 let isCaps = false;
 let symbol;
@@ -18,7 +17,11 @@ const keyboardListener = () => {
 
         if ((e.ctrlKey || e.metaKey) && e.altKey) {
             changeLang();
-            isEng = !isEng;
+            if (document.querySelector('.eng').classList.contains('hidden')) {
+                localStorage.setItem('isEng', 'false');
+            } else {
+                localStorage.setItem('isEng', 'true');
+            }
         }
 
         if (e.code === 'CapsLock' && !isDown) {

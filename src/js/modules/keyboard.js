@@ -1,8 +1,9 @@
 class KeyBoard {
-    constructor(setUp, parentSelector, system) {
+    constructor(setUp, parentSelector, system, isEng) {
         this.setUp = setUp;
         this.parent = document.querySelector(parentSelector);
         this.system = system;
+        this.isEng = isEng;
     }
 
     render() {
@@ -10,6 +11,13 @@ class KeyBoard {
         element.classList.add('keyboard');
         element.innerHTML = this.setUp;
         this.parent.append(element);
+    }
+
+    languageCheck() {
+        if (this.isEng === 'true') {
+            document.querySelectorAll('.rus').forEach((item) => item.classList.toggle('hidden'));
+            document.querySelectorAll('.eng').forEach((item) => item.classList.toggle('hidden'));
+        }
     }
 
     languageMessage() {

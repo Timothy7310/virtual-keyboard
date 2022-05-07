@@ -8,8 +8,9 @@ import keyboardListener from './modules/keyboard-listener';
 
 const textarea = new TextArea('body');
 textarea.render();
-const keyboard = new KeyBoard(keyBoradSetUp, 'body', navigator.userAgent);
+const keyboard = new KeyBoard(keyBoradSetUp, 'body', navigator.userAgent, localStorage.getItem('isEng'));
 keyboard.render();
+keyboard.languageCheck();
 keyboard.languageMessage();
 keyboard.operatingSystemMessage();
 
