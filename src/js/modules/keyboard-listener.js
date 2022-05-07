@@ -1,12 +1,15 @@
 import changeLang from './change-language';
 import capsFunc from './caps-button';
 import shiftFunc from './shift-button';
+import typingSymbols from './typing-symbols';
 
 let isEng = false;
 let isDown = false;
 let isCaps = false;
+let symbol;
 
 const keyboardListener = () => {
+    const textarea = document.querySelector('.textarea');
     document.addEventListener('keydown', (e) => {
         e.preventDefault();
         if (e.code !== 'CapsLock') {
@@ -27,6 +30,34 @@ const keyboardListener = () => {
         if ((!isDown && e.code === 'ShiftLeft') || (!isDown && e.code === 'ShiftRight')) {
             shiftFunc();
             isDown = true;
+        }
+
+        symbol = typingSymbols(document.querySelector(`.${e.code}`));
+
+        if (
+            e.code === 'CapsLock'
+            || e.code === 'ShiftLeft'
+            || e.code === 'ShiftRight'
+            || e.code === 'Delete'
+            || e.code === 'Backspace'
+            || e.altKey
+            || e.ctrlKey
+            || e.metaKey
+        ) {
+            symbol = '';
+        }
+        if (e.code === 'Enter') {
+            symbol = '\n';
+        }
+        if (e.code === 'Space') {
+            symbol = ' ';
+        }
+        if (e.code === 'Tab') {
+            symbol = '\t';
+        }
+        textarea.innerHTML += symbol;
+        if (e.code === 'Backspace') {
+            textarea.innerHTML = textarea.innerHTML.slice(0, -1);
         }
     });
 
