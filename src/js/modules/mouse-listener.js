@@ -21,6 +21,11 @@ const mouseListener = () => {
             shiftFunc();
         }
 
+        let cursorPosition = textarea.selectionStart;
+        const left = textarea.value.slice(0, cursorPosition);
+        const right = textarea.value.slice(cursorPosition);
+        cursorPosition += 1;
+
         if (e.target.classList.contains('keyboard-key')) {
             symbol = typingSymbols(e.target);
             if (
@@ -36,6 +41,7 @@ const mouseListener = () => {
                 || e.target.closest('.MetaLeft')
             ) {
                 symbol = '';
+                cursorPosition -= 1;
             }
             if (e.target.closest('.Enter')) {
                 symbol = '\n';
@@ -46,11 +52,18 @@ const mouseListener = () => {
             if (e.target.closest('.Space')) {
                 symbol = ' ';
             }
-            textarea.innerHTML += symbol;
+            textarea.value = `${left}${symbol}${right}`;
 
             if (e.target.closest('.Backspace')) {
-                textarea.innerHTML = textarea.innerHTML.slice(0, -1);
+                if (cursorPosition > 0) {
+                    textarea.value = `${left.slice(0, -1)}${right}`;
+                    cursorPosition -= 1;
+                }
             }
+            if (e.target.closest('.Delete')) {
+                textarea.value = `${left}${right.slice(1)}`;
+            }
+            textarea.setSelectionRange(cursorPosition, cursorPosition);
         } else {
             symbol = e.target.innerHTML;
             if (
@@ -63,6 +76,7 @@ const mouseListener = () => {
                 || e.target.innerHTML === 'Win'
             ) {
                 symbol = '';
+                cursorPosition -= 1;
             } else {
                 symbol = e.target.innerHTML;
             }
@@ -72,10 +86,17 @@ const mouseListener = () => {
             if (e.target.innerHTML === 'Tab') {
                 symbol = '\t';
             }
-            textarea.innerHTML += symbol;
+            textarea.value = `${left}${symbol}${right}`;
             if (e.target.innerHTML === 'Backspace') {
-                textarea.innerHTML = textarea.innerHTML.slice(0, -1);
+                if (cursorPosition > 0) {
+                    textarea.value = `${left.slice(0, -1)}${right}`;
+                    cursorPosition -= 1;
+                }
             }
+            if (e.target.innerHTML === 'Del') {
+                textarea.value = `${left}${right.slice(1)}`;
+            }
+            textarea.setSelectionRange(cursorPosition, cursorPosition);
         }
     }));
 

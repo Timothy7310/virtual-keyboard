@@ -9,6 +9,7 @@ let symbol;
 
 const keyboardListener = () => {
     const textarea = document.querySelector('.textarea');
+
     document.addEventListener('keydown', (e) => {
         e.preventDefault();
         if (e.code !== 'CapsLock') {
@@ -36,6 +37,10 @@ const keyboardListener = () => {
         }
 
         symbol = typingSymbols(document.querySelector(`.${e.code}`));
+        let cursorPosition = textarea.selectionStart;
+        const left = textarea.value.slice(0, cursorPosition);
+        const right = textarea.value.slice(cursorPosition);
+        cursorPosition += 1;
 
         if (
             e.code === 'CapsLock'
@@ -48,6 +53,7 @@ const keyboardListener = () => {
             || e.metaKey
         ) {
             symbol = '';
+            cursorPosition -= 1;
         }
         if (e.code === 'Enter') {
             symbol = '\n';
@@ -58,12 +64,19 @@ const keyboardListener = () => {
         if (e.code === 'Tab') {
             symbol = '\t';
         }
-        textarea.innerHTML += symbol;
-        if (e.code === 'Backspace') {
-            textarea.innerHTML = textarea.innerHTML.slice(0, -1);
-        }
-    });
 
+        textarea.value = `${left}${symbol}${right}`;
+        if (e.code === 'Backspace') {
+            if (cursorPosition > 0) {
+                textarea.value = `${left.slice(0, -1)}${right}`;
+                cursorPosition -= 1;
+            }
+        }
+        if (e.code === 'Delete') {
+            textarea.value = `${left}${right.slice(1)}`;
+        }
+        textarea.setSelectionRange(cursorPosition, cursorPosition);
+    });
     document.addEventListener('keyup', (e) => {
         e.preventDefault();
         if (e.code !== 'CapsLock') {
