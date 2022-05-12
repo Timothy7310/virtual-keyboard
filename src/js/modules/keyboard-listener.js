@@ -48,6 +48,8 @@ const keyboardListener = () => {
             || e.code === 'ShiftRight'
             || e.code === 'Delete'
             || e.code === 'Backspace'
+            || e.code === 'ArrowRight'
+            || e.code === 'ArrowLeft'
             || e.altKey
             || e.ctrlKey
             || e.metaKey
@@ -63,6 +65,14 @@ const keyboardListener = () => {
         }
         if (e.code === 'Tab') {
             symbol = '\t';
+        }
+        if (e.code === 'ArrowRight') {
+            cursorPosition += 1;
+        }
+        if (e.code === 'ArrowLeft') {
+            if (cursorPosition > 0) {
+                cursorPosition -= 1;
+            }
         }
 
         textarea.value = `${left}${symbol}${right}`;

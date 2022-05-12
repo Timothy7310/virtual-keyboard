@@ -94,6 +94,16 @@
     color:var(--accent-text);
 }
 
+.caseDown,
+.caseUp,
+.caps,
+.shiftCaps{
+    display: inline-block;
+    height: 100%;
+}
+
 .hidden{
     display: none;
 }
+
+

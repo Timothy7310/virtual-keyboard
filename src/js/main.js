@@ -11,7 +11,12 @@ textarea.render();
 const keyboard = new KeyBoard(keyBoradSetUp, 'body', navigator.userAgent, localStorage.getItem('isEng'));
 keyboard.render();
 keyboard.languageCheck();
-keyboard.languageMessage();
+keyboard.languageMessage(`Для смены языка используйте:
+<span class="accent-text">Ctrl + Alt</span>
+`);
+keyboard.languageMessage(`Для смены языка мышкой используйте:
+<span class="accent-text">Win</span>
+`);
 keyboard.operatingSystemMessage();
 
 mouseListener();

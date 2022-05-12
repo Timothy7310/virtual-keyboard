@@ -20,12 +20,10 @@ class KeyBoard {
         }
     }
 
-    languageMessage() {
+    languageMessage(text) {
         const message = document.createElement('p');
         message.classList.add('language');
-        message.innerHTML = `Для смены языка используйте:
-                            <span class="accent-text">Ctrl + Alt</span>
-                            `;
+        message.innerHTML = text;
         this.parent.append(message);
     }
 

@@ -1,3 +1,4 @@
+import changeLang from './change-language';
 import capsFunc from './caps-button';
 import shiftFunc from './shift-button';
 import typingSymbols from './typing-symbols';
@@ -9,6 +10,15 @@ const mouseListener = () => {
     const keys = document.querySelectorAll('.keyboard-key');
     keys.forEach((key) => key.addEventListener('mousedown', (e) => {
         e.preventDefault();
+
+        if (key.classList.contains('MetaLeft')) {
+            changeLang();
+            if (document.querySelector('.eng').classList.contains('hidden')) {
+                localStorage.setItem('isEng', 'false');
+            } else {
+                localStorage.setItem('isEng', 'true');
+            }
+        }
 
         if (!key.classList.contains('CapsLock')) {
             key.classList.add('active');
