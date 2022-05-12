@@ -49,6 +49,8 @@ const mouseListener = () => {
                 || e.target.closest('.ControlRight')
                 || e.target.closest('.Backspace')
                 || e.target.closest('.MetaLeft')
+                || e.target.closest('.ArrowRight')
+                || e.target.closest('.ArrowLeft')
             ) {
                 symbol = '';
                 cursorPosition -= 1;
@@ -61,6 +63,14 @@ const mouseListener = () => {
             }
             if (e.target.closest('.Space')) {
                 symbol = ' ';
+            }
+            if (e.target.closest('.ArrowRight')) {
+                cursorPosition += 1;
+            }
+            if (e.target.closest('.ArrowLeft')) {
+                if (cursorPosition > 0) {
+                    cursorPosition -= 1;
+                }
             }
             textarea.value = `${left}${symbol}${right}`;
 
@@ -84,6 +94,8 @@ const mouseListener = () => {
                 || e.target.innerHTML === 'Ctrl'
                 || e.target.innerHTML === 'Backspace'
                 || e.target.innerHTML === 'Win'
+                || e.target.innerHTML === '◄'
+                || e.target.innerHTML === '►'
             ) {
                 symbol = '';
                 cursorPosition -= 1;
@@ -95,6 +107,14 @@ const mouseListener = () => {
             }
             if (e.target.innerHTML === 'Tab') {
                 symbol = '\t';
+            }
+            if (e.target.innerHTML === '►') {
+                cursorPosition += 1;
+            }
+            if (e.target.innerHTML === '◄') {
+                if (cursorPosition > 0) {
+                    cursorPosition -= 1;
+                }
             }
             textarea.value = `${left}${symbol}${right}`;
             if (e.target.innerHTML === 'Backspace') {
